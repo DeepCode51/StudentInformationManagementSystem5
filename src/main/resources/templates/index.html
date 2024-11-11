@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>您好，欢迎登录</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/lib/css/index.css}">
+    <script th:src="@{/layui/layui.js}"></script>
+    <style>
+        .form{
+            height: 300px;
+        }
+        #tip{
+            color: red;
+            width: 150px;
+            font-size: 15px;
+            margin-left: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login">
+        <div class="top">
+            <label>login</label>
+        </div>
+        <div class="form">
+            <br>
+            <form class="layui-form" th:action="@{/login}" method="post">
+                <br>
+                <label class="layui-form-label" id="tip"  th:text="${tips}"></label>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" lay-verify="username"   autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <br>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码:</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="password" lay-verify="password"    autocomplete="off" class="layui-input">
+
+                    </div>
+
+                </div>
+                <br>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-radius " lay-submit="" lay-filter="demo1">登录</button>
+                        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                        <a type="reset" class="layui-btn layui-btn-radius  layui-btn-primary" th:href="@{/toregist}">注册</a>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.braisedpanda.shirotest.mapper.StudentMapper">
+
+
+    <!--添加学生-->
+    <insert id="addStudent" parameterType="com.braisedpanda.shirotest.bean.Student"
+
+    >
+        insert into student
+        (stu_id,
+        stu_name,
+        stu_password,
+        stu_email,
+        stu_id_card,
+        stu_sex,
+        stu_birthday,
+        nation_name,
+        stu_age,
+        stu_status,
+        class_id,
+        stu_enrollment_time,
+        stu_political,
+        stu_address,
+        stu_image)
+        values (
+        #{stu_id},
+        #{stu_name},
+        #{stu_password},
+        #{stu_email},
+        #{stu_id_card},
+        #{stu_sex},
+        #{stu_birthday},
+        #{nation_name},
+        #{stu_age},
+         #{stu_status},
+        #{class_id},
+        #{stu_enrollment_time},
+        #{stu_political},
+        #{stu_address},
+        #{stu_image})
+
+    </insert>
+
+
+    <!--查询所有的学生-->
+    <select id="getAllStudent" resultType="com.braisedpanda.shirotest.bean.Student">
+        select * from student
+    </select>
+
+    <!--根据学生id查询学生-->
+    <!--查询所有的学生-->
+    <select id="getStudentById" resultType="com.braisedpanda.shirotest.bean.Student">
+        select * from student where stu_id = #{stu_id}
+    </select>
+
+    <!--删除学生信息-->
+    <delete id="delete">
+        delete from student where stu_id = #{stu_id}
+    </delete>
+
+    <!--更新学生信息-->
+    <update id="updateStudent" parameterType="com.braisedpanda.shirotest.bean.Student">
+        update student set
+        stu_name=#{stu_name},
+        stu_password=#{stu_password},
+        stu_email=#{stu_email},
+        stu_id_card=#{stu_id_card},
+        stu_sex=#{stu_sex},
+        stu_birthday=#{stu_birthday},
+        nation_name=#{nation_name},
+        stu_age=#{stu_age},
+        stu_status=#{stu_status},
+        class_id=#{class_id},
+        stu_enrollment_time=#{stu_enrollment_time},
+        stu_political=#{stu_political},
+        stu_address=#{stu_address},
+        stu_image=#{stu_image}
+        where stu_id=#{stu_id}
+    </update>
+
+    <!--查询所有学生的班级id(distinct:取不同的值)-->
+    <select id="getAllClass" resultType="String">
+        select distinct(class_id) from student
+    </select>
+
+    <!--根据班级的cid查询学生的总数-->
+    <select id="getStudentCountByCid" resultType="int">
+        select count(*) from student where class_id=#{class_id}
+    </select>
+
+
+
+    <select id="getStudentByClassId" resultType="com.braisedpanda.shirotest.bean.Student">
+
+        select * from student where class_id = #{class_id}
+
+    </select>
+
+
+
+
+
+
+
+
+
+</mapper>

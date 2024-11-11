@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.braisedpanda.shirotest.mapper.UserMapper">
+
+    <!--查找所有用户-->
+    <select id="getAllUser" resultType="com.braisedpanda.shirotest.bean.User">
+        select * from user
+    </select>
+
+    <!--添加用户-->
+    <insert id="addUser" parameterType="com.braisedpanda.shirotest.bean.User"
+        useGeneratedKeys="true" keyProperty="uid"
+    >
+        insert into user
+        (username,password,email,birthday,gender,activecode,images)
+        values (#{username},#{password},#{email},#{birthday},#{gender},#{activecode},#{images})
+
+    </insert>
+
+    <!--根据用户名密码查找用户-->
+    <select id="getUser" resultType="com.braisedpanda.shirotest.bean.User" parameterType="String">
+        select * from user where username=#{username} and password=#{password}
+    </select>
+
+    <!--删除用户-->
+    <delete id="delete">
+        delete from user where uid=#{uid}
+    </delete>
+
+    <!--根据uid查找用户-->
+    <select id="getUserByUid" resultType="com.braisedpanda.shirotest.bean.User">
+      select * from user where uid = #{uid}
+    </select>
+
+    <!--修改用户信息-->
+    <update id="edit" parameterType="com.braisedpanda.shirotest.bean.User">
+        update user set
+        username=#{username},password=#{password},email=#{email},birthday=#{birthday},
+        activecode=#{activecode},gender=#{gender}
+        where uid=#{uid}
+
+    </update>
+    <!--根据uid查找所有的role-->
+    <select id="getRole" resultType="com.braisedpanda.shirotest.bean.User_Role">
+        select * from user_role where uid=#{uid}
+    </select>
+
+    <!--根据uid查找所有的permission-->
+    <select id="getPermission" resultType="String">
+        select permission from role_permission where roleid=#{roleid}
+    </select>
+
+</mapper>

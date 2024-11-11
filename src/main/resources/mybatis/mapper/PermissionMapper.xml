@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.braisedpanda.shirotest.mapper.PermissionMapper">
+
+
+    <!--添加角色-->
+    <insert id="addRole" parameterType="com.braisedpanda.shirotest.bean.Role"
+
+    >
+        insert into role
+        (roleid,
+        role,
+        role_describe
+
+        )
+        values (
+        #{roleid},
+        #{role},
+        #{role_describe}
+   )
+
+    </insert>
+
+
+    <!--查询所有的权限信息-->
+    <select id="getAllPermission" resultType="com.braisedpanda.shirotest.bean.Permission">
+        select * from permission
+    </select>
+
+    <!--根据权限id查出对应的权限-->
+    <select id="getPermissionById" resultType="com.braisedpanda.shirotest.bean.Permission">
+        select * from permission where permissionid = #{permissionid}
+    </select>
+
+    <insert id="addRole_Permission" parameterType="com.braisedpanda.shirotest.bean.Role_Permission">
+      insert into role_permission
+      (
+      r_p_id,
+      permissionid,
+      permission,
+      permission_describe,
+      roleid,
+      role,
+      role_describe
+      )
+      values
+      (
+      #{r_p_id},
+      #{permissionid},
+      #{permission},
+      #{permission_describe},
+      #{roleid},
+      #{role},
+      #{role_describe}
+
+      )
+
+
+
+    </insert>
+
+
+    <!--查找所有的角色-->
+    <select id="getAllRole" resultType="com.braisedpanda.shirotest.bean.Role">
+        select * from role
+    </select>
+
+    <!--根据uid查找所有的角色-->
+    <select id="getRoleById" resultType="com.braisedpanda.shirotest.bean.User_Role">
+        select * from user_role where uid=#{uid}
+    </select>
+
+    <!--根据roleid在表role中查询相应的role-->
+    <select id="getRoleByRoleId" resultType="com.braisedpanda.shirotest.bean.Role">
+        select * from role where roleid = #{roleid}
+    </select>
+
+    <!--新增user_role信息-->
+    <insert id="addUser_Role" parameterType="com.braisedpanda.shirotest.bean.User_Role">
+        insert into user_role
+        (
+        u_r_id,
+        roleid,
+        role,
+        uid,
+        username,
+        role_describe
+        )
+        values
+        (
+        #{u_r_id},
+        #{roleid},
+        #{role},
+        #{uid},
+        #{username},
+        #{role_describe}
+
+        )
+
+
+
+    </insert>
+
+    <!--在表user_role中删除所有uid的角色-->
+    <delete id="deleteRoleByUid">
+        delete  from user_role where uid=#{uid}
+    </delete>
+
+    <!--查找所有的role_permission表中内容-->
+    <select id="getAllRole_Permission" resultType="com.braisedpanda.shirotest.bean.Role_Permission"
+            >
+        select * from role_permission
+    </select>
+
+    <!--根据r_p_id删除角色所拥有的权限-->
+    <delete id="deleteRolePermissionById">
+        delete from role_permission where r_p_id = #{r_p_id}
+    </delete>
+
+
+    <!-- 根据r_p_id查找role_permission对象-->
+    <select id="getRole_PermissionById" resultType="com.braisedpanda.shirotest.bean.Role_Permission">
+        select * from role_permission where roleid = #{roleid}
+
+    </select>
+
+    <!--根据roleid删除role_permission表中所有的权限-->
+    <delete id="deleteRolePermissionByRoleid">
+        delete from role_permission where roleid=#{roleid}
+    </delete>
+
+    <!-- 在role表中更新role的相关权限、名称等信息-->
+    <update id="updateRole" parameterType="com.braisedpanda.shirotest.bean.Role">
+        update role set role=#{role},role_describe=#{role_describe} where roleid=#{roleid}
+    </update>
+
+    <!--根据roleid删除表role中的role-->
+    <delete id="deleteRoleByRoleid">
+        delete from role where roleid=#{roleid}
+    </delete>
+
+
+
+
+</mapper>

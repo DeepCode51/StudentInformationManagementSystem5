@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+
+
+    <title>Title</title>
+</head>
+<style>
+    body{
+        background-image: url("images/background/page_bg.JPG");
+        background-size: 100%;
+
+    }
+</style>
+<body>
+ <a th:href="@{/menu/main}">注册成功！点击此处进入主页</a>
+ <div th:text="${user.username}"></div>
+</body>
+</html>

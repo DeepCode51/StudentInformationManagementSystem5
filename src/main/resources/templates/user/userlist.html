@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{lib/css/main.css}">
+    <link rel="stylesheet" th:href="@{/lib/css/public.css}">
+    <link rel="stylesheet" th:href="@{/lib/css/userlist.css}">
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+    <link rel="stylesheet" th:href="@{/lib/css/jquery-confirm.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/lib/css/bundled.css}" type="text/css">
+    <script th:src="@{/lib/js/jquery-confirm.js}" type="text/javascript"></script>
+
+
+</head>
+
+<style>
+    #form2{
+        display: none;
+
+    }
+    #form2 input{
+        width:300px;
+    }
+    .title{
+        text-align: center;
+        color:grey;
+    }
+    body{
+           background-image: url("images/background/page_bg.JPG");
+           background-size: 100%;
+
+       }
+
+</style>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+</script>
+<body>
+
+<!--<div th:replace="menu/left :: leftbar" ></div>-->
+<!--<div th:replace="menu/top :: topbar"></div>-->
+<div class="center">
+    <div class="search">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+
+
+            <input type="text" name="text"  placeholder="请输入用户名、用户ID..." class="input">
+            <button class="layui-btn  layui-btn-sm" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe615;</i>搜索用户</button>
+
+
+            </div>
+       </form>
+    </div>
+    <div class="add">
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-warm" onclick="adduser()">
+            <i class="layui-icon">&#xe608;</i> 添加用户
+        </button>
+    </div>
+</div>
+
+<table class="layui-table" onload="tablesize();">
+    <colgroup>
+        <col width="150">
+        <col width="200">
+        <col>
+    </colgroup>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>用户名</th>
+        <th>头像</th>
+        <th>邮箱</th>
+        <th>性别</th>
+        <th>生日</th>
+        <th>激活码</th>
+
+        <th width="180px">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user:${userList}">
+        <td th:text="${user.uid}"></td>
+        <td th:text="${user.username}"></td>
+        <td ><img width="40px" height="40px" th:src="${user.images}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.gender}"></td>
+        <td th:text="${user.birthday}"></td>
+
+        <td th:text="${user.activecode}"></td>
+
+        <td>
+            <a th:href="@{/edituser/{uid}(uid=${user.uid})}" ><i class="layui-icon layui-icon-edit" style="font-size: 15px; color: #12aa9c;">编辑</i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" th:id="${user.uid}" class="delete"><i class="layui-icon layui-icon-delete" style="font-size: 15px; color: #ed5a65;">删除</i></a>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+
+<div class="button">
+    <a type="button" class="layui-btn layui-btn-sm layui-btn-primary" th:href="@{/userlist/1}" >
+        <i class="layui-icon">首页</i>
+    </a>
+    <a type="button" class="layui-btn layui-btn-sm layui-btn-primary" th:href="@{/userlist/{startPage}(startPage=${startPage-1})}" th:if="${startPage}>1">
+        <i class="layui-icon">&#xe65a;</i>
+    </a>
+    <a type="button" class="layui-btn layui-btn-sm layui-btn-primary" th:href="@{/userlist/{startPage}(startPage=${startPage-2})}" th:if="${startPage}-2>0">
+        <i class="layui-icon">[[${startPage}-2]]</i>
+    </a>
+    <a type="button" class="layui-btn layui-btn-sm layui-btn-primary" th:href="@{/userlist/{startPage}(startPage=${startPage-1})}" th:if="${startPage}-1>0">
+        <i class="layui-icon">[[${startPage}-1]]</i>
+    </a>
+    <a type="button" class="layui-btn layui-btn-sm layui-btn-primary" >
+        <i class="layui-icon">[[${startPage}]]</i>
+    </a>
+    <a type="button" class="layui-btn layui-btn-sm layui-btn-primary" th:href="@{/userlist/{startPage}(startPage=${startPage+1})}" th:if="${startPage}+1<${totalPage}">
+        <i class="layui-icon">[[${startPage}+1]]</i>
+    </a>
+    <a type="button" class="layui-btn layui-btn-sm layui-btn-primary" th:href="@{/userlist/{startPage}(startPage=${startPage+2})}" th:if="${startPage}+2<=${totalPage}">
+        <i class="layui-icon">[[${startPage}+2]]</i>
+    </a>
+    <a type="button" class="layui-btn layui-btn-sm layui-btn-primary" th:href="@{/userlist/{startPage}(startPage=${startPage+1})}" th:if="${startPage}+1<=${totalPage}">
+        <i class="layui-icon">&#xe65b;</i>
+    </a>
+    <a type="button" class="layui-btn layui-btn-sm layui-btn-primary" th:href="@{/userlist/{startPage}(startPage=${totalPage})}" >
+        <i class="layui-icon">尾页</i>
+    </a>
+</div>
+<script>
+
+    $(function () {
+        //自适应调整表格的大小
+        tablesize = function () {
+            var table = $(".layui-table");
+            table.width = document.documentElement.clientWidth-200;
+            var twidth = table.width+"px";
+            table.css("width",twidth);
+            console.log(twidth);
+        }
+        window.onresize=function(){
+            tablesize();
+        }
+        window.onload=function(){
+            tablesize();
+        }
+
+        //删除按钮
+        $(".delete").click(function () {
+            var id = $(this).attr("id");
+            var url ='delete/'+id ;
+
+
+            $.confirm({
+                title: '提示',
+                content:'是否确认删除？',
+                buttons: {
+                    ok: {
+                        text: '删除',
+                        btnClass: 'btn-red',
+
+                        action: function(){
+                            var url ='/delete/'+id ;
+                            $.ajax({
+                                type :"post",
+                                url : url
+
+                            });
+                            window.location.reload();
+                        }
+                    },
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'btn-default',
+
+                    }
+                }
+
+            });
+        });
+
+        //添加用户
+        adduser = function(){
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.open({
+
+                    title: ['用户信息'],
+                    type: 1,
+                    content: $("#form2"),
+                    area: ['520px', '600px']
+                });
+            });
+        }
+        
+
+
+    });
+
+
+</script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 5){
+                    return '标题至少得5个字符啊';
+                }
+            }
+            ,password: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+            ,username:[
+                /^[\S]{2,}$/
+                ,'用户名长度必须大于2，且不能出现空格'
+            ]
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+
+
+    });
+</script>
+<form class="layui-form" th:action="@{/adduser}" method="post" id="form2">
+    <h2 class="title">添加用户</h3>
+    <hr class="layui-bg-green">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名:</label>
+        <div class="layui-input-block">
+            <input type="text" name="username" lay-verify="username"  placeholder="填写用户名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码:</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" lay-verify="password"  placeholder="请填写6到12位密码" autocomplete="off" class="layui-input">
+
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别:</label>
+        <div class="layui-input-block">
+            <input type="radio" name="gender" value="man" title="男" checked="">
+            <input type="radio" name="gender" value="woman" title="女">
+
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">邮箱:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="email" lay-verify="email" autocomplete="off" placeholder="example@exp.com" class="layui-input">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+
+        <div class="layui-inline">
+            <label class="layui-form-label">日期:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="birthday" id="date" lay-verify="date" placeholder="选择出生日期" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">激活码:</label>
+        <div class="layui-input-inline">
+            <input placeholder="激活码(选填)" name="activecode" class="layui-input"></input>
+        </div>
+    </div>
+    <br>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-radius layui-btn-normal" lay-submit="" lay-filter="demo1">注册</button>
+            &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+            <button type="reset" class="layui-btn layui-btn-radius  layui-btn-danger">重置</button>
+        </div>
+    </div>
+    <br>
+</form>
+</body>
+
+
+
+
+
+
+
+</html>

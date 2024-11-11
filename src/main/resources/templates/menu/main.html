@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{lib/css/main.css}">
+    <link rel="stylesheet" th:href="@{/lib/css/public.css}">
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+</head>
+<style>
+    .body{
+        margin-left: 200px;
+        float: left;
+    }
+    body{
+        background-image: url("images/background/page_bg.JPG");
+        background-size: 100%;
+
+    }
+
+    #top-nav{
+        margin-left: 200px;
+    }
+    a{
+        cursor: pointer;
+    }
+    .title{
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+
+    }
+    .layui-footer{
+        color:rgb(102, 102, 102);
+
+    }
+    .layui-footer p {
+        margin-top:6px;
+
+    }
+    .bottom_left{
+        margin-left:40%;
+        float: left;
+        text-align: center;
+        font-size: 13px;
+    }
+
+
+    .ul1 li{
+        margin-top:6px;
+        margin-left: 10px;
+        float: left;
+
+    }
+    .ul1 li a{
+        color:rgb(102, 102, 102);
+        font-size: 13px;
+    }
+
+
+
+
+</style>
+
+<body>
+<ul class="layui-nav layui-bg-cyan" id="top-nav">
+    <li class="layui-nav-item">
+        <a th:href="@{/index}">首页</a>
+    </li>
+    <li class="layui-nav-item">
+        <dd class="main_left"><a data-src="/userinfo">个人中心<span class="layui-badge-dot"></span></a></dd>
+    </li>
+    <li class="layui-nav-item">
+        <a th:href="@{/index}"><img src="/images/2019-08-07/f8aa0870-e4ea-4170-9772-296204476267.jpg" class="layui-nav-img" th:text="'你好，'+${session.user.username}"></a>
+
+    </li>
+    <li class="layui-nav-item">
+        <a href="quite">退出登录</a>
+
+    </li>
+</ul>
+
+
+<div class="left" th:fragment="leftbar">
+    <ul class="layui-nav layui-nav-tree  layui-nav-side" lay-filter="test" id="left">
+        <li class="title"><a th:href="@{/index}" style="font-size:18px;font-family: 'Century Gothic';color: #bce8f1">Designed by Layui</a></li>
+        <li class="layui-nav-item layui-nav-itemed">
+            <a href="javascript:;">基本信息</a>
+            <dl class="layui-nav-child" >
+                <shiro:hasPermissions name="student_list">
+                    <dd class="main_left"><a  data-src="/tostudentlist"  target="_top" >学生列表</a></dd>
+                </shiro:hasPermissions>
+
+                <shiro:hasPermission name="class_list">
+                    <dd class="main_left"><a data-src="/toclasslist" target="_top">班级列表</a></dd>
+                </shiro:hasPermission>
+
+                <shiro:hasPermission name="user_list">
+                    <dd class="main_left"><a data-src="/userlist2" target="_top">用户列表</a></dd>
+
+                </shiro:hasPermission>
+
+
+                <dd class="main_left"><a data-src="/userlist/1" target="_top">无授权测试</a></dd>
+
+
+
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">成绩统计</a>
+            <dl class="layui-nav-child">
+                <shiro:hasPermission name="mygrades">
+                    <dd class="main_left"><a data-src="/tostudentgrades" target="_top">我的成绩</a></dd>
+                </shiro:hasPermission>
+
+                <dd class="main_left"> <a data-src="/toclassgrades" target="_top">班级成绩</a></dd>
+
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">操作管理</a>
+            <dl class="layui-nav-child">
+                <!--<shiro:hasPermission name="addstudent">-->
+                <dd class="main_left"><a data-src="/toaddstudent" target="_top">添加学生</a></dd>
+                <!--</shiro:hasPermission>-->
+
+                <dd class="main_left"><a data-src="/uploadtest" target="_top">上传测试</a></dd>
+
+            </dl>
+        </li>
+        <shiro:hasPermission name="allrole">
+        <li class="layui-nav-item">
+            <a href="javascript:;">权限管理</a>
+            <dl class="layui-nav-child">
+
+                <shiro:hasPermission name="allrole">
+                    <dd class="main_left"><a data-src="/toallrole" target="_top">所有角色一览</a></dd>
+                </shiro:hasPermission>
+
+                <shiro:hasPermission name="allpermission">
+                    <dd class="main_left"><a data-src="/toallpermission" target="_top">角色权限一览</a></dd>
+                </shiro:hasPermission>
+
+                <shiro:hasPermission name="addrole">
+                    <dd class="main_left"><a data-src="/torole" target="_top">新增权限角色</a></dd>
+                </shiro:hasPermission>
+
+                <shiro:hasPermission name="authorize">
+                    <dd class="main_left"><a data-src="/toaddpermission" target="_top">授予用户权限</a></dd>
+                </shiro:hasPermission>
+
+            </dl>
+        </li>
+        </shiro:hasPermission>
+    </ul>
+
+</div>
+
+<div class="main_right">
+    <iframe frameborder="0" scrolling="yes" style="width: 100%" src="" id="aa">
+
+
+
+    </iframe>
+</div>
+<div class="layui-footer">
+    <!-- 底部固定区域 -->
+    <div class="bottom_left">
+        <ul class="ul1"  >
+            <li><a href="javascript:;">首页&nbsp;&nbsp;|&nbsp;</a></li>
+            <li><a href="javascript:;">站点情况&nbsp;&nbsp;|&nbsp;</a></li>
+            <li> <a href="javascript:;">学生列表&nbsp;&nbsp;|&nbsp;</a></li>
+            <li> <a href="javascript:;">用户列表&nbsp;&nbsp;|&nbsp;</a></li>
+            <li><a href="javascript:;">班级列表&nbsp;&nbsp;|&nbsp;</a></li>
+            <li><a href="javascript:;">大数据分析</a></li>
+
+        </ul>
+        <br> <br>
+        <p>版权所有 Copyright &copy; 2018 皖ICP@braised_panda</p>
+        <p>技术支持： braisedPanda</p>
+        <br>
+    </div>
+
+</div>
+
+
+
+
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+    $(function(){
+        $(".main_left a").on("click",function(){
+            var address =$(this).attr("data-src");
+            $("iframe").attr("src",address);
+        });
+
+        var frame = $("#aa");
+//        var top = $("#top-nav");
+//        var topheight = top.height();
+//        console.log("top高度："+topheight);
+        var frameheight = $(window).height();
+        console.log(frameheight);
+        frame.css("height",frameheight);
+
+
+    });
+
+</script>
+</body>
+</html>

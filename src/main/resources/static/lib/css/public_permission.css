@@ -1,0 +1,34 @@
+*{
+    padding:0;
+    margin:0;
+}
+
+.layui-nav{
+
+}
+.er{
+    margin-left: 200px;
+
+}
+.tablename{
+    font-size: 30px;
+    margin-left: 20px;
+    font-family: 幼圆;
+    color: #41ae3c;
+    font-weight: 300;
+    margin-top: 10px;
+}
+.table{
+    margin-left: 200px;
+    height:600px;
+}
+.bodyimg{
+    background: url("images/background/page_bg.JPG");
+    background-size: 100%;
+
+}
+.layui-table{
+    background: rgba(255, 255, 255, 0.75);
+    color:rgb(102, 102, 102);
+
+}

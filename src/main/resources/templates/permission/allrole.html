@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>所有角色一览(可删除整个角色)</title>
+
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{lib/css/main.css}">
+    <link rel="stylesheet" th:href="@{/lib/css/public_permission.css}">
+
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+
+
+
+</head>
+
+<style>
+    body{
+        background-image: url("images/background/page_bg.JPG");
+        background-size: 100%;
+
+    }
+</style>
+
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+
+
+</script>
+
+<body>
+<!--<div th:replace="menu/left :: leftbar" ></div>-->
+<!--<div th:replace="menu/top :: topbar"></div>-->
+
+
+<div class="table">
+    <h2 class="tablename">所有角色一览(可删除整个角色)</h2>
+    <hr class="layui-bg-green">
+<table class="layui-hide" id="demo" lay-filter="test"></table>
+</div>
+<script type="text/html" id="barDemo">
+
+
+   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+
+
+</script>
+
+<script>
+
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider'], function(){
+        var laydate = layui.laydate //日期
+            ,laypage = layui.laypage //分页
+            ,layer = layui.layer //弹层
+            ,table = layui.table //表格
+            ,carousel = layui.carousel //轮播
+            ,upload = layui.upload //上传
+            ,element = layui.element //元素操作
+            ,slider = layui.slider //滑块
+
+        //执行一个 table 实例
+        table.render({
+            elem: '#demo'
+            ,height: 800
+            ,limit:'20'
+            ,url: 'allrole' //数据接口
+            ,title: '用户表'
+            ,page: true //开启分页
+
+            ,toolbar: 'true ' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+
+            ,cols: [ [ //表头
+                {type: 'checkbox', fixed: 'left'},
+//
+                {field: 'roleid', title: 'ID',width:'10%', sort: true,fixed: 'left'}
+                ,{field: 'role', title: '角色名称', width: '15%', sort: true}
+                ,{field: 'role_describe', title: '角色说明'}
+                ,{fixed: 'right', width: '10%', align:'center', toolbar: '#barDemo'}
+
+
+
+            ] ]
+        });
+        //监听行工具事件
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+             if(layEvent === 'del'){
+                layer.confirm('是否确认删除该角色？', function(index){
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    var roleid = obj.data.roleid;
+                    console.log(roleid);
+                    $.ajax({
+                        type:"post",
+                        url:'permission/deleterole/'+roleid
+                    });
+//                    window.location.reload();
+
+
+                });
+            }
+        });
+
+
+
+
+    });
+</script>
+</body>
+
+</html>

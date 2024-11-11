@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>授予角色权限</title>
+
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{lib/css/main.css}">
+    <link rel="stylesheet" th:href="@{/lib/css/public_permission.css}">
+
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+
+
+
+
+</head>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+    $(function () {
+       $("#uid").change(function(){
+           var uid = $(this).val();
+
+          $.ajax({
+              type:'post',
+              url:'findrolebyid/'+uid,
+              success:function (result) {
+
+                  var have1 = $("#haved1")[0];
+
+                  var username = $("#usename")[0];
+
+                  var uname = document.createElement("p");
+                  uname.innerHTML = result[0].username;;
+                  username.appendChild(uname);
+                  for(var i=0;i<result.length;i++){
+                      var inp = document.createElement("p");
+
+                      inp.innerHTML = result[i].role;
+
+                      console.log(inp);
+
+                      have1.appendChild(inp);
+
+
+
+
+                  }
+              }
+          });
+       });
+
+        $("#uid").change(function(){
+            var uid = $(this).val();
+            var have1 = $("#haved1")[0];
+            var child = have1.childNodes;
+            for(var i=child.length;i>0;i--){
+                console.log(child[i]);
+                have1.removeChild(child[0]);
+            }
+
+            var username = $("#usename")[0];
+            var child1 = username.childNodes;
+            for(var i=child1.length;i>0;i--){
+                console.log(child1[i]);
+                username.removeChild(child1[0]);
+            }
+
+
+        });
+
+
+    });
+
+
+
+</script>
+<style>
+
+    .layui-form{
+        width:600px;
+    }
+    p{
+        color:white;
+        float: left;
+        margin-left:5px;
+        /*width:50px;*/
+        height:30px;
+        font-size:20px;
+        text-align: center;
+        font-family: 方正舒体;
+        line-height: 30px;
+        background:#f1939c;
+    }
+    .tip{
+        color: darkred;
+        font-size: 15px;
+        font-family: 等线;
+        margin-left: 30px;
+    }
+    body{
+        background-image: url("images/background/page_bg.JPG");
+        background-size: 100%;
+
+    }
+
+</style>
+
+<body>
+<!--<div th:replace="menu/left :: leftbar" ></div>-->
+<!--<div th:replace="menu/top :: topbar"></div>-->
+
+
+<div class="table">
+
+    <h2 class="tablename">授予用户权限</h2>
+    <hr class="layui-bg-green">
+
+    <form class="layui-form" action="addpermission">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户id:</label>
+            <div class="layui-input-block">
+                <input type="text" name="uid" required  lay-verify="required" placeholder="请输入角色id" autocomplete="off" class="layui-input" id="uid">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名:</label>
+            <div class="layui-input-block" id="usename">
+
+
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">已有角色:</label>
+            <div class="layui-input-block" id="haved1">
+
+
+            </div>
+        </div>
+        <div class="tip">*注意：修改角色会覆盖以前所有的权限信息</div>
+        <div class="tip" th:text="${msg}"></div>
+        <br>
+        <div class="layui-form-item">
+            <label class="layui-form-label">授予角色</label>
+            <div class="layui-input-block">
+
+                    <input th:value="${role.roleid}" th:title="${role.role}" th:each="role:${roleList}" type="checkbox" name="role" >
+             </div>
+
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        //Demo
+        layui.use('form', function(){
+            var form = layui.form;
+
+            //监听提交
+//            form.on('submit(formDemo)', function(data){
+//                layer.msg(JSON.stringify(data.field));
+//                return false;
+//            });
+        });
+    </script>
+</div>
+
+
+
+</body>
+
+</html>

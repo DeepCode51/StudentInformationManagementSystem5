@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/lib/js/jquery-3.4.1.min.js"></script>
+    <script src="/layui/layui.js"></script>
+    <style>
+
+        .stu_image{
+            display: none;
+        }
+        #image{
+            width: 70px;
+            height:70px;
+        }
+    </style>
+    <script>
+        $(function () {
+            var t1 = $(".stu_image").html();
+
+
+            $("#image").attr("src",t1);
+        });
+    </script>
+</head>
+<body>
+
+<div class="login">
+
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>项目</th>
+            <th>内容</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>班级id</td>
+            <td class="class_id"></td>
+        </tr>
+        <tr>
+
+            <td>班级名称</td>
+            <td class="class_name"></td>
+        </tr>
+        <tr>
+
+            <td>班主任</td>
+            <td class="class_teacher"></td>
+        </tr>
+        <tr>
+            <td>学生人数</td>
+            <td class="class_count"></td>
+        </tr>
+        <tr>
+            <td>语文老师</td>
+            <td class="chinese_teacher"></td>
+        </tr>
+        <tr>
+            <td>数学老师</td>
+            <td class="mathematics_teacher"></td>
+        </tr>
+
+
+        <tr>
+            <td>英语老师</td>
+            <td class="english_teacher"></td>
+        </tr>
+        <tr>
+            <td>政治老师</td>
+            <td class="politics_teacher"></td>
+        </tr>
+
+
+        <tr>
+            <td>历史老师</td>
+            <td class="history_teacher"></td>
+        </tr>
+        <tr>
+            <td>地理老师</td>
+            <td class="geography_teacher"></td>
+        </tr>
+        <tr>
+            <td>生物老师</td>
+            <td class="biology_teacher"></td>
+        </tr>
+        <tr>
+            <td>化学老师</td>
+            <td class="chemistry_teacher"></td>
+        </tr>
+
+        <tr>
+            <td>物理老师</td>
+            <td class="physics_teacher"></td>
+        </tr>
+
+        <tr>
+            <td>音乐老师</td>
+            <td class="music_teacher"></td>
+        </tr>
+
+        <tr>
+            <td>美术老师</td>
+            <td class="arts_teacher"></td>
+        </tr>
+        <tr>
+            <td>体育老师</td>
+            <td class="sports_teacher"></td>
+        </tr>
+
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+.search{
+    margin-left: 200px;
+    float: left;
+}
+.layui-table{
+    margin-left: 200px;
+    float: left;
+}
+.button{
+    margin-top: 10px;
+    margin-left:40%;
+    float: left;
+}
+.input{
+    margin-left: 10px;
+    width:250px;
+    height:30px;
+    border:1px solid grey;
+    padding:5px;
+}
+.add{
+    float: left;
+    margin-left: 15px;
+}

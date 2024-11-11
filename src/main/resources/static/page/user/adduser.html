@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/lib/css/index.css">
+    <script src="/layui/layui.js"></script>
+    <style>
+        .top{
+
+            text-align: center;
+            font-size: 60px;
+            color: white;
+            line-height:150px;
+            font-family: 幼圆;
+
+        }
+        body{
+            background-image: url("images/background/page_bg.JPG");
+            background-size: 100%;
+
+        }
+    </style>
+</head>
+<body >
+
+<div class="login">
+    <div class="top">
+        <label>添加用户</label>
+    </div>
+    <div class="form">
+        <br>
+        <form class="layui-form" action="/add_user" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="username" lay-verify="username"   placeholder="填写用户名" autocomplete="off" class="layui-input username">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="password" lay-verify="password"  placeholder="请填写6到12位密码" autocomplete="off" class="layui-input password">
+
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label ">性别:</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="gender" value="man" title="男" checked="">
+                    <input type="radio" name="gender" value="woman" title="女">
+
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">邮箱:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="email" lay-verify="email" autocomplete="off" placeholder="example@exp.com" class="layui-input email">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">出生日期:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="birthday" id="date" lay-verify="date" placeholder="选择出生日期" autocomplete="off" class="layui-input birthday">
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-radius layui-btn-normal" lay-submit="" lay-filter="demo1">修改</button>
+                    &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                    <button type="reset" class="layui-btn layui-btn-radius  layui-btn-danger">重置</button>
+                </div>
+            </div>
+            <br>
+        </form>
+
+    </div>
+</div>
+
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 5){
+                    return '标题至少得5个字符啊';
+                }
+            }
+            ,password: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+            ,username:[
+                /^[\S]{2,}$/
+                ,'用户名长度必须大于2，且不能出现空格'
+            ]
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+
+
+    });
+</script>
+</body>
+</html>

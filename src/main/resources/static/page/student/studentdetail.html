@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/lib/js/jquery-3.4.1.min.js"></script>
+    <script src="/layui/layui.js"></script>
+    <style>
+
+        .stu_image{
+            display: none;
+        }
+        #image{
+            width: 70px;
+            height:70px;
+        }
+    </style>
+    <script>
+        $(function () {
+            var t1 = $(".stu_image").html();
+
+
+            $("#image").attr("src",t1);
+        });
+    </script>
+</head>
+<body>
+
+<div class="login">
+
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>项目</th>
+            <th>内容</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>学号</td>
+            <td class="stu_id"></td>
+        </tr>
+        <tr>
+            <td class="stu_image"></td>
+            <td>照片</td>
+            <td ><img id="image"></td>
+        </tr>
+        <tr>
+
+            <td>姓名</td>
+            <td class="stu_name"></td>
+        </tr>
+        <tr>
+            <td>登录密码</td>
+            <td class="stu_password"></td>
+        </tr>
+        <tr>
+            <td>年龄</td>
+            <td class="stu_age"></td>
+        </tr>
+        <tr>
+            <td>身份证号码</td>
+            <td class="stu_id_card"></td>
+        </tr>
+
+
+        <tr>
+            <td>性别</td>
+            <td class="stu_sex"></td>
+        </tr>
+        <tr>
+            <td>邮箱</td>
+            <td class="stu_email"></td>
+        </tr>
+
+
+        <tr>
+            <td>生日</td>
+            <td class="stu_birthday"></td>
+        </tr>
+        <tr>
+            <td>民族</td>
+            <td class="nation_name"></td>
+        </tr>
+        <tr>
+            <td>学业状态</td>
+            <td class="stu_status"></td>
+        </tr>
+        <tr>
+            <td>班级</td>
+            <td class="class_id"></td>
+        </tr>
+
+        <tr>
+            <td>入学时间</td>
+            <td class="stu_enrollment_time"></td>
+        </tr>
+
+        <tr>
+            <td>政治面貌</td>
+            <td class="stu_political"></td>
+        </tr>
+
+        <tr>
+            <td>家庭住址</td>
+            <td class="stu_address"></td>
+        </tr>
+
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+
+
+</body>
+</html>

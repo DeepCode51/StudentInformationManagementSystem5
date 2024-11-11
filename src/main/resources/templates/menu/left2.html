@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+</head>
+<style>
+    body{
+        margin:0;
+        padding:0;
+    }
+
+
+
+</style>
+<body>
+
+<div class="left" th:fragment="leftbar">
+    <ul class="layui-nav layui-nav-tree  layui-nav-side" lay-filter="test" id="left">
+        <li class="layui-nav-item" style="height: 60px"><a href="#" style="font-size:18px;font-family: 'Century Gothic';color: #bce8f1">Designed by Layui</a></li>
+        <li class="layui-nav-item layui-nav-itemed">
+            <a href="javascript:;">基本信息</a>
+            <dl class="layui-nav-child">
+                <shiro:hasPermissions name="student_list">
+                <dd><a th:href="@{/tostudentlist}"  target="_top">学生列表</a></dd>
+                </shiro:hasPermissions>
+
+                <shiro:hasPermission name="class_list">
+                <dd ><a th:href="@{/toclasslist}" target="_top">班级列表</a></dd>
+                </shiro:hasPermission>
+
+                <shiro:hasPermission name="user_list">
+                <dd><a th:href="@{/userlist2}" target="_top">用户列表</a></dd>
+
+                </shiro:hasPermission>
+
+
+                <dd ><a th:href="@{/userlist/1}" target="_top">无授权测试</a></dd>
+
+
+
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">成绩统计</a>
+            <dl class="layui-nav-child">
+                <shiro:hasPermission name="mygrades">
+                <dd><a th:href="@{/tostudentgrades}" target="_top">我的成绩</a></dd>
+                </shiro:hasPermission>
+
+                <dd><a th:href="@{/toclassgrades}" target="_top">班级成绩</a></dd>
+
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">操作管理</a>
+            <dl class="layui-nav-child">
+                <!--<shiro:hasPermission name="addstudent">-->
+                <dd><a th:href="@{/toaddstudent}" target="_top">添加学生</a></dd>
+                <!--</shiro:hasPermission>-->
+
+                <dd><a th:href="@{/uploadtest}" target="_top">上传测试</a></dd>
+
+            </dl>
+        </li>
+        <shiro:hasPermission name="allrole">
+        <li class="layui-nav-item">
+            <a href="javascript:;">权限管理</a>
+            <dl class="layui-nav-child">
+
+                <shiro:hasPermission name="allrole">
+                    <dd><a th:href="@{/toallrole}" target="_top">所有角色一览</a></dd>
+                </shiro:hasPermission>
+
+                <shiro:hasPermission name="allpermission">
+                     <dd><a th:href="@{/toallpermission}" target="_top">角色权限一览</a></dd>
+                </shiro:hasPermission>
+
+                <shiro:hasPermission name="addrole">
+                    <dd><a th:href="@{/torole}" target="_top">新增权限角色</a></dd>
+                </shiro:hasPermission>
+
+                <shiro:hasPermission name="authorize">
+                      <dd><a th:href="@{/toaddpermission}" target="_top">授予用户权限</a></dd>
+                </shiro:hasPermission>
+
+            </dl>
+        </li>
+        </shiro:hasPermission>
+    </ul>
+
+</div>
+
+<script>
+    layui.use('element', function(){
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+        //监听导航点击
+        element.on('nav(demo)', function(elem){
+            //console.log(elem)
+            layer.msg(elem.text());
+        });
+    });
+
+
+
+
+</script>
+</body>
+</html>

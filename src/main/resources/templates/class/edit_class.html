@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑班级信息</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{lib/css/main.css}">
+    <link rel="stylesheet" th:href="@{/lib/css/public.css}">
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+    <style>
+
+        .layui-form input{
+            width:215px;
+        }
+        .body{
+            margin-left: 200px;
+            height:800px;
+        }
+        #image2{
+            wdith:100px;
+            height: 100px;
+        }
+        .layui-upload-list{
+            margin-left: 120px;
+
+        }
+        .layui-upload-img{
+            wdith:100px;
+            height: 100px;
+        }
+        body{
+            background-image: url("images/background/page_bg.JPG");
+            background-size: 100%;
+
+        }
+    </style>
+
+    <script>
+        layui.use('element', function(){
+            var element = layui.element;
+
+            //…
+        });
+
+
+
+    </script>
+</head>
+<body>
+<!--<div th:replace="menu/left :: leftbar" ></div>-->
+<!--<div th:replace="menu/top :: topbar"></div>-->
+<div class="body">
+    <h2>编辑班级信息</h2>
+    <hr class="layui-bg-gray">
+    <div class="form">
+        <br>
+        <form class="layui-form" action="/editclass" method="post">
+            <input type="hidden" name="class_id" th:value="${class.class_id}" class="layui-input">
+            <input type="hidden" name="class_count" th:value="${class.class_count}" class="layui-input">
+            <div class="layui-form-item">
+                <label class="layui-form-label">班级名称:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="class_name" th:value="${class.class_name}" autocomplete="off" class="layui-input" required>
+                </div>
+            </div>
+
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">班主任:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="class_teacher" th:value="${class.class_teacher}" class="layui-input" required>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">语文老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="chinese_teacher" th:value="${class.chinese_teacher}" class="layui-input" required>
+                </div>
+
+                <label class="layui-form-label">数学老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="mathematics_teacher" th:value="${class.mathematics_teacher}" class="layui-input" required>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">英语老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="english_teacher" th:value="${class.english_teacher}" class="layui-input" required>
+                </div>
+
+                <label class="layui-form-label">政治老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="politics_teacher" th:value="${class.politics_teacher}" class="layui-input" required>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">历史老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="history_teacher" th:value="${class.history_teacher}" class="layui-input" required>
+                </div>
+
+                <label class="layui-form-label">地理老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="geography_teacher" th:value="${class.geography_teacher}" class="layui-input" required>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">生物老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="biology_teacher" th:value="${class.biology_teacher}" class="layui-input" required>
+                </div>
+
+                <label class="layui-form-label">化学老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="chemistry_teacher" th:value="${class.chemistry_teacher}" class="layui-input" required>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">物理老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="physics_teacher" th:value="${class.physics_teacher}" class="layui-input" required>
+                </div>
+
+                <label class="layui-form-label">音乐老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="music_teacher" th:value="${class.music_teacher}" class="layui-input" required>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">美术老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="arts_teacher" th:value="${class.arts_teacher}" class="layui-input" required>
+                </div>
+
+                <label class="layui-form-label">体育老师:</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="sports_teacher" th:value="${class.sports_teacher}" class="layui-input" required>
+                </div>
+            </div>
+
+
+            <br>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                    <button class="layui-btn layui-btn-radius layui-btn-normal" lay-submit="" lay-filter="demo1">修改</button>
+                    &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                    <button type="reset" class="layui-btn layui-btn-radius  layui-btn-danger">重置</button>
+                </div>
+            </div>
+            <br>
+        </form>
+
+
+
+    </div>
+
+</div>
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+
+    });
+</script>
+
+
+</body>
+</html>

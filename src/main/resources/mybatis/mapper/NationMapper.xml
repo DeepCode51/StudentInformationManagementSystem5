@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.braisedpanda.shirotest.mapper.NationMapper">
+
+
+    <!--根据nationid查找nation-->
+    <select id="getNationById" resultType="com.braisedpanda.shirotest.bean.Nation">
+        select * from nation where nation_id=#{nation_id}
+    </select>
+
+    <!--查找所有的nation-->
+    <select id="getAllNation" resultType="com.braisedpanda.shirotest.bean.Nation">
+        select * from nation
+    </select>
+
+</mapper>

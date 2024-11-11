@@ -1,0 +1,47 @@
+*{
+    padding:0;
+    margin:0;
+}
+body{
+    background: url("/images/background/bg.jpg") no-repeat;
+    background-size: 100%;
+
+}
+.login{
+
+    width:500px;
+   margin:30px auto;
+}
+input{
+    width:400px;
+}
+.layui-input{
+    width:300px;
+    border-radius: 16px;
+}
+.form{
+    height:420px;
+    background-color: rgba(226,226,228,70%);
+}
+.top{
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    width:500px;
+    height:150px;
+    background: url("/images/background/timg.jpg");
+    text-align: center;
+    font-size: 80px;
+    color: white;
+    line-height:150px;
+    font-family: BastardusSans;
+
+}
+.layui-textarea{
+    height:50px;
+    width:300px;
+}
+.layui-form-label{
+    color: white;
+    font-size: 18px;
+    font-family: 幼圆;
+}
